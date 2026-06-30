@@ -35,22 +35,30 @@ int main (int argc, char* argv[]) {
             printManage(db_path);
             return 0;
         } else if (command == "drop") {
+            if (argc == 0) {
+                throw std::invalid_argument("No parameters recieved. Use <help> <drop> to learn more about \"drop\".");
+            }
             throw std::runtime_error("Developing...");
             return 0;
         } else if (command == "use") {
+            if (argc == 0) {
+                throw std::invalid_argument("No parameters recieved. Use <help> <use> to learn more about \"use\".");
+            }
+            if (!std::filesystem::exists(db_path + "/" + args[0])) {
+                throw std::invalid_argument("No such database found.");
+            }
             // Берём бд
             init(command, argc, args);
         } else if (command == "create") {
             if (argc == 0) {
                 throw std::invalid_argument("No parameters recieved. Use <help> <create> to learn more about \"create\".");
             }
-            if (std::filesystem::exists(args[0]))
+            if (std::filesystem::exists(db_path + "/" + args[0])) {
+                throw std::invalid_argument("Database with name \"" + args[0] + "\"already exists");
+            }
             // Создаём бд
             init(command, argc, args);
         } else {
-            if (argc == 0) {
-                throw std::invalid_argument("No parameters recieved. Use <help> <use> to learn more about \"use\".");
-            }
             throw std::invalid_argument("Wrong command recieved. Use <help> to learn more");
         }
     }

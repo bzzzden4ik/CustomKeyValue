@@ -3,6 +3,24 @@
 ### Main idea - create my own append key-value storage like Redis.
 ### This project was made for educational purpose but it also can be used as main key-value storage for your projects.
 
+## How to use?
+
+```bash
+cd CustomKeyValue
+g++ ./src/*.cpp ./app/*.cpp -o CKV
+./CKV
+```
+
+Be careful with config and startup location!
+You must start it from root directory of repository.
+
+For more information use:
+
+```bash
+CKV help # for main usage
+CKV help <command> # for details
+```
+
 ## Why do I need it?
 
 * Use it for your own projects
