@@ -44,8 +44,8 @@ int main (int argc, char* argv[]) {
             if (argc == 0) {
                 throw std::invalid_argument("No parameters recieved. Use <help> <use> to learn more about \"use\".");
             }
-            if (!std::filesystem::exists(db_path + "/" + args[0])) {
-                throw std::invalid_argument("No such database found.");
+            if (!std::filesystem::exists(db_path + "/" + args[0] + ".cdb")) {
+                throw std::invalid_argument("No such database found.\nUse <manage> to check existring databases or <create> to create new database.");
             }
             // Берём бд
             init(command, argc, args);
@@ -53,8 +53,8 @@ int main (int argc, char* argv[]) {
             if (argc == 0) {
                 throw std::invalid_argument("No parameters recieved. Use <help> <create> to learn more about \"create\".");
             }
-            if (std::filesystem::exists(db_path + "/" + args[0])) {
-                throw std::invalid_argument("Database with name \"" + args[0] + "\"already exists");
+            if (std::filesystem::exists(db_path + "/" + args[0] + ".cdb")) {
+                throw std::invalid_argument("Database with name \"" + args[0] + ".cdb" + "\" already exists");
             }
             // Создаём бд
             init(command, argc, args);
