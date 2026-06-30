@@ -1,1 +1,1 @@
-path:"../databases";
+path:"./databases";
