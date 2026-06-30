@@ -38,7 +38,10 @@ int main (int argc, char* argv[]) {
             if (argc == 0) {
                 throw std::invalid_argument("No parameters recieved. Use <help> <drop> to learn more about \"drop\".");
             }
-            throw std::runtime_error("Developing...");
+            if (!std::filesystem::exists(db_path + "/" + args[0] + ".cdb")) {
+                throw std::invalid_argument("No such database found.\nUse <manage> to check existring databases or <create> to create new database.");
+            }
+            std::filesystem::remove(db_path + "/" + args[0] + ".cdb");
             return 0;
         } else if (command == "use") {
             if (argc == 0) {
@@ -48,7 +51,16 @@ int main (int argc, char* argv[]) {
                 throw std::invalid_argument("No such database found.\nUse <manage> to check existring databases or <create> to create new database.");
             }
             // Берём бд
-            init(command, argc, args);
+            Database myDB (db_path + "/" + args[0] + ".cdb");
+            try {
+                args.clear();
+                argc = 0;
+                command.clear();
+                init(args);
+            }
+            catch(const std::out_of_range& e) {
+                std::cerr << "There is no element with key \"" << "&key" << "\"\n";
+            }
         } else if (command == "create") {
             if (argc == 0) {
                 throw std::invalid_argument("No parameters recieved. Use <help> <create> to learn more about \"create\".");
