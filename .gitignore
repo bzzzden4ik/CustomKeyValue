@@ -1,2 +1,3 @@
 CKV.exe
 databases/*
+!databases/.gitkeep
