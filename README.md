@@ -3,6 +3,11 @@
 ### Main idea - create my own append key-value storage like Redis.
 ### This project was made for educational purpose but it also can be used as main key-value storage for your projects.
 
+### Main logic is ./include/database.h
+
+This file contains Database class that you can you in your way.
+Other parts of project is just CLI programm.
+
 ## How to use?
 
 ```bash

@@ -52,15 +52,11 @@ int main (int argc, char* argv[]) {
             }
             // Берём бд
             Database myDB (db_path + "/" + args[0] + ".cdb");
-            try {
-                args.clear();
-                argc = 0;
-                command.clear();
-                init(args);
-            }
-            catch(const std::out_of_range& e) {
-                std::cerr << "There is no element with key \"" << "&key" << "\"\n";
-            }
+            args.clear();
+            argc = 0;
+            command.clear();
+            init(args, myDB);
+            
         } else if (command == "create") {
             if (argc == 0) {
                 throw std::invalid_argument("No parameters recieved. Use <help> <create> to learn more about \"create\".");
@@ -69,7 +65,6 @@ int main (int argc, char* argv[]) {
                 throw std::invalid_argument("Database with name \"" + args[0] + ".cdb" + "\" already exists");
             }
             // Создаём бд
-            init(command, argc, args);
         } else {
             throw std::invalid_argument("Wrong command recieved. Use <help> to learn more");
         }

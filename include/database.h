@@ -14,7 +14,6 @@ private:
     std::unordered_map<std::string, std::string> table;
 public:
     Database(const std::string& path) : idbstream(path) {
-        // Инициализация map
         this->path = path;
         std::string line;
         while (std::getline(idbstream, line)) {
@@ -33,10 +32,15 @@ public:
             }
         }
         idbstream.close();
-        odbstream = std::ofstream(path, std::ios::app);
+        odbstream.open(path, std::ios::app);
     }
     std::string get(const std::string& key) {
-        return table.at(key);
+        try {
+            return table.at(key);
+        } catch(const std::exception& e) {
+            std::cerr << "There is no pair found with this key." << '\n';
+        }
+        return "";
     }
     void set(const std::string& key, const std::string& value) {
         table[key] = value;
